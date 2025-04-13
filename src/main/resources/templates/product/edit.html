@@ -5,14 +5,15 @@
     <meta name="viewport"
           content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
-    <title>상품 추가 페이지</title>
+    <title>상품 수정 페이지</title>
 </head>
 <body>
-    <form th:action="@{/product/add}" method="post" th:object="${productVO}">
-        <input th:field="*{productName}" placeholder="상품명" />
-        <input th:field="*{productPrice}"  placeholder="상품가격" />
-        <input th:field="*{productStock}"  placeholder="상품재고" />
-        <input th:field="*{productBrand}"  placeholder="브랜드" />
+    <form th:action="@{/product/edit}" method="post" th:object="${productVO}">
+        <input th:field="*{productName}" placeholder="상품명" th:value="${productVO.productName}"/>
+        <input th:field="*{productPrice}"  placeholder="상품가격" th:value="${productVO.productPrice}" />
+        <input th:field="*{productStock}"  placeholder="상품재고" th:value="${productVO.productStock}" />
+        <input th:field="*{productBrand}"  placeholder="브랜드" th:value="${productVO.productBrand}" />
+        <input type="hidden" th:field="*{id}">
         <button type="button">완료</button>
     </form>
 
