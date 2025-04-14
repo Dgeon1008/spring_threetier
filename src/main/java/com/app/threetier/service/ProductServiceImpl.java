@@ -4,12 +4,14 @@ import com.app.threetier.domain.ProductVO;
 import com.app.threetier.repository.ProductDAO;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
 import java.util.Optional;
 
 @Service
 @RequiredArgsConstructor
+@Transactional(rollbackFor = Exception.class) // 트랜잭션 처리
 public class ProductServiceImpl implements ProductService {
 
     private final ProductDAO productDAO;

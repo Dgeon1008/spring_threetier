@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.app.threetier.mapper.TaskMapper">
+
+    <insert id="insert" parameterType="TaskVO">
+        INSERT INTO VIEW_TASK(ID, TASK_KOR, TASK_ENG, TASK_MATH)
+        VALUES (SEQ_TASK.NEXTVAL, #{taskKor}, #{taskEng}, #{taskMath})
+    </insert>
+
+    <select id="selectAll" resultType="TaskVO">
+        SELECT ID, TASK_KOR, TASK_ENG, TASK_MATH, TOTAL, AVERAGE
+        FROM VIEW_TASK
+    </select>
+
+</mapper>

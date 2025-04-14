@@ -57,8 +57,6 @@ public class PostController {
 //        *******
 //        write.html console.log => 글 작성하려면 memberId 필요 => session에서 가져오기
         model.addAttribute("memberId", ((MemberVO)session.getAttribute("member")).getId());
-
-
     }
 
     @PostMapping("write")

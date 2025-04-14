@@ -9,5 +9,7 @@
         <typeAlias type="com.app.threetier.domain.MemberVO" alias="MemberVO" />
         <typeAlias type="com.app.threetier.domain.PostVO" alias="PostVO" />
         <typeAlias type="com.app.threetier.domain.ProductVO" alias="ProductVO" />
+        <typeAlias type="com.app.threetier.domain.BookVO" alias="BookVO" />
+        <typeAlias type="com.app.threetier.domain.TaskVO" alias="TaskVO" />
     </typeAliases>
 </configuration>

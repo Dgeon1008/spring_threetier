@@ -41,6 +41,7 @@ public class PostServiceImpl implements PostService {
     }
 
 //    게시글 삭제
+    @Override
     public void removePost(Long id) {
         postDAO.deleteById(id);
     }
