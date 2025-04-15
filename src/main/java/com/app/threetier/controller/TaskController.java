@@ -1,7 +1,9 @@
 package com.app.threetier.controller;
 
+import com.app.threetier.domain.CompanyVO;
 import com.app.threetier.domain.ProductVO;
 import com.app.threetier.domain.TaskVO;
+import com.app.threetier.service.CompanyService;
 import com.app.threetier.service.PostService;
 import com.app.threetier.service.ProductService;
 import com.app.threetier.service.TaskService;
@@ -16,15 +18,19 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 import org.springframework.web.servlet.view.RedirectView;
 
+import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
+
 @Controller
 @Slf4j
-@RequestMapping("/task/*")
+//@RequestMapping("/task/*")
 @RequiredArgsConstructor
 public class TaskController {
 
 //    private final ProductService productService;
     private final ProductService productService;
     private final TaskService taskService;
+    private final CompanyService companyService;
 //
 //    @GetMapping("add")
 //    public void goToAdd(ProductVO productVO){;}
@@ -82,8 +88,65 @@ public class TaskController {
 //        model.addAttribute("tasks", taskService.getTasks());
     }
 
+//    3번 실습
+    @GetMapping("/company/check-in")
+    public void goToCheckInForm(CompanyVO companyVO) {;}
+
+//    출근
+    @GetMapping("/company/get-to-work")
+    public void goToGetToWork() {;}
+
+//    퇴근
+    @GetMapping("/company/leave-work")
+    public void goToLeaveWork() {;}
+
+//    지각
+    @GetMapping("/company/late")
+    public void goToLate() {;}
+
+//    일하는 중
+    @GetMapping("/company/work")
+    public void goToWork() {;}
+
+    @PostMapping("/company/check-in")
+    public RedirectView checkIn(CompanyVO companyVO, String flag) {
+        LocalDateTime now = LocalDateTime.now();
+
+//        자바
+        String format = now.format(DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss"));
+        log.info("{}", format);
+
+        int hours = now.getHour();
+        int minutes = now.getMinute();
+
+//        지각
+        boolean lateCondition = hours >=9 && minutes > 0;
+//        퇴근
+        boolean leaveWorkCondition = hours >= 17 && minutes >= 0;
+
+        if(flag.equals("getToWork")) {
+            companyVO.setGetToWorkDateTime(format);
+            companyService.register(companyVO);
+//            횡단로직
+            log.info("{}", companyVO);
+
+//            출근 시간 초가? 지각 : 정시출근
+            return new RedirectView(lateCondition ? "/company/late" : "/company/get-to-work");
+        }
+//        퇴근
+        companyVO.setLeaveWorkDateTime(format);
+        log.info("{}", companyVO);
+        companyService.register(companyVO);
+
+//        퇴근 시간이면 퇴근 : 땡땡이
+        return new RedirectView(lateCondition ? "/company/leave-work" : "/company/work");
+
+    }
 
 }
+
+
+
 
 
 
